@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スタッフ業務ポータル｜株式会社宗前堂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFBF5;
+      --card-bg: #FFFFFF;
+      --coral-header: #FF9A8B;
+      --coral-main: #FF8E72;
+      --coral-dark: #F26B4E;
+      --teal-main: #2A9D8F;
+      --teal-soft: #E6F5F3;
+      --amber-soft: #FFF4E0;
+      --pink-soft: #FFEFF2;
+      --blue-soft: #EEF6FF;
+      --blue-accent: #2563EB;
+      --text-main: #4A3F35;
+      --text-sub: #7D6F63;
+      --border-soft: #F0E6D8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Zen Maru Gothic', -apple-system, BlinkMacSystemFont, "Hiragino Maru Gothic ProN", sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      line-height: 1.55;
+      padding-bottom: 48px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 画面切り替え制御 */
+    .view-section {
+      display: none;
+    }
+    .view-section.active {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 共通コンテナ */
+    .container {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* ===== メインメニュー画面 ===== */
+    .portal-header {
+      background: linear-gradient(135deg, #FFA896 0%, #FF8E72 100%);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 18px 16px 20px;
+      border-radius: 0 0 26px 26px;
+      box-shadow: 0 4px 14px rgba(255, 142, 114, 0.22);
+      margin-bottom: 16px;
+    }
+
+    .portal-header h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .portal-header .sub {
+      font-size: 0.85rem;
+      font-weight: 700;
+      opacity: 0.95;
+      margin-top: 2px;
+    }
+
+    /* キャラクター＆日付エリア */
+    .hero-card {
+      background: #FFFFFF;
+      border: 2px solid var(--border-soft);
+      border-radius: 24px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 12px rgba(74, 63, 53, 0.05);
+    }
+
+    .hero-char {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+      flex-shrink: 0;
+      border-radius: 16px;
+      background: var(--bg-cream);
+    }
+
+    .hero-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero-balloon {
+      position: relative;
+      background: #FCD59B;
+      color: var(--text-main);
+      border-radius: 18px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .hero-balloon::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 7px solid transparent;
+      border-right: 9px solid #FCD59B;
+      border-bottom: 7px solid transparent;
+    }
+
+    .today-chip {
+      background: #F9E6DF;
+      color: var(--text-main);
+      border-radius: 14px;
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* 2列メニューグリッド */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .menu-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-main);
+      border-radius: 22px;
+      padding: 18px 12px 16px;
+      min-height: 132px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 12px rgba(74, 63, 53, 0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      overflow: visible;
+    }
+
+    .menu-card:active {
+      transform: scale(0.97);
+    }
+
+    .menu-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .menu-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .menu-desc {
+      font-size: 0.73rem;
+      color: #5C5046;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* パステルカラーテーマ */
+    .theme-mint   { background: #CBEFE0; border-color: #B4E5D0; }
+    .theme-yellow { background: #FCE0AE; border-color: #F6CF8C; }
+    .theme-blue   { background: #CDE6FB; border-color: #B3D7F7; }
+    .theme-coral  { background: #FADAC8; border-color: #EE9B82; }
+    .theme-purple { background: #E4D4FA; border-color: #D1B9F5; }
+    .theme-sky    { background: #BCEBFF; border-color: #98DDFB; }
+
+    /* 丸バッジ（例：Q&Aが見れるよ！） */
+    .badge-circle {
+      position: absolute;
+      top: -10px;
+      right: -6px;
+      background: #F46C5E;
+      color: #FFFFFF;
+      font-size: 0.65rem;
+      font-weight: 700;
+      line-height: 1.15;
+      padding: 6px 8px;
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 3px 8px rgba(244, 108, 94, 0.35);
+      transform: rotate(8deg);
+    }
+
+    /* 斜めリボン（例：ハブ） */
+    .ribbon-tag {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #4BA3E3;
+      color: #FFFFFF;
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* ===== サブ画面（シフト＆質問箱）共通ヘッダー ===== */
+    .sub-header {
+      background: linear-gradient(135deg, #FF9E80 0%, #FF8E72 100%);
+      color: #FFFFFF;
+      padding: 14px 16px 18px;
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 4px 14px rgba(255, 142, 114, 0.22);
+      margin-bottom: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .sub-header-inner {
+      max-width: 540px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      border: 1.5px solid rgba(255, 255, 255, 0.6);
+      border-radius: 14px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .sub-header-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    /* ===== シフト画面パーツ ===== */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 12px 10px;
+      border-radius: 20px;
+      line-height: 1.35;
+    }
+
+    .btn-shift-req { background: linear-gradient(135deg, #FF9E80 0%, #F26B4E 100%); }
+    .btn-work-rep  { background: linear-gradient(135deg, #38B2AC 0%, #2A9D8F 100%); }
+
+    .today-pickup {
+      background: #FFFFFF;
+      border: 2px solid var(--coral-main);
+      border-radius: 20px;
+      padding: 13px 15px;
+      margin-bottom: 14px;
+    }
+
+    .today-pickup-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .today-pickup-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--coral-dark);
+    }
+
+    .jump-today-btn {
+      background: var(--amber-soft);
+      color: #B45309;
+      border: 1.5px solid #FDE68A;
+      border-radius: 12px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .pickup-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pickup-chip {
+      background: var(--bg-cream);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 4px 9px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .control-panel {
+      background: #FFFFFF;
+      border: 2px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 13px;
+      margin-bottom: 12px;
+    }
+
+    .month-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1.5px dashed var(--border-soft);
+    }
+
+    .month-tab {
+      flex: 1;
+      background: var(--bg-cream);
+      color: var(--text-sub);
+      border: 1.5px solid var(--border-soft);
+      padding: 7px 10px;
+      border-radius: 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .month-tab.active {
+      background: var(--coral-main);
+      color: #FFFFFF;
+      border-color: var(--coral-main);
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .staff-select {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 14px;
+      border: 2px solid var(--border-soft);
+      background: var(--bg-cream);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: inherit;
+    }
+
+    .summary-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 4px 10px;
+      font-size: 0.76rem;
+      color: var(--text-sub);
+      font-weight: 700;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .day-card {
+      background: #FFFFFF;
+      border: 2px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 13px 15px;
+      margin-bottom: 10px;
+    }
+
+    .day-card.today-card {
+      border-color: var(--coral-main);
+      background: #FFFDF9;
+    }
+
+    .day-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 9px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid var(--border-soft);
+    }
+
+    .day-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .dow-badge {
+      font-size: 0.74rem;
+      padding: 2px 7px;
+      border-radius: 8px;
+      background: var(--bg-cream);
+      color: var(--text-sub);
+    }
+    .dow-sat { background: var(--blue-soft); color: var(--blue-accent); }
+    .dow-sun { background: var(--pink-soft); color: var(--coral-dark); }
+
+    .holiday-badge {
+      background: var(--pink-soft);
+      color: var(--coral-dark);
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 8px;
+    }
+
+    .today-pill {
+      background: var(--coral-main);
+      color: #FFFFFF;
+      font-size: 0.66rem;
+      padding: 2px 7px;
+      border-radius: 8px;
+    }
+
+    .shift-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .shift-pill {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 12px;
+      font-size: 0.83rem;
+      font-weight: 700;
+    }
+    .pill-allday { background: var(--pink-soft); color: var(--coral-dark); }
+    .pill-time   { background: var(--teal-soft); color: var(--teal-main); }
+
+    .pill-time-text {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 2px 9px;
+      border-radius: 9px;
+      font-size: 0.78rem;
+    }
+
+    .handover-box {
+      background: #FFFFFF;
+      border: 2px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 15px;
+      margin-top: 16px;
+    }
+
+    .handover-item {
+      background: var(--bg-cream);
+      border-radius: 12px;
+      padding: 9px 11px;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .handover-meta {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--coral-dark);
+      margin-bottom: 2px;
+    }
+
+    /* ===== 質問箱（Q&A）画面パーツ ===== */
+    .qa-post-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      background: linear-gradient(135deg, #FF9E80 0%, #F26B4E 100%);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(242, 107, 78, 0.25);
+    }
+
+    .qa-search {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      border: 2px solid var(--border-soft);
+      background: #FFFFFF;
+      font-size: 0.88rem;
+      font-family: inherit;
+      margin-bottom: 10px;
+    }
+
+    .qa-cat-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+
+    .qa-cat-tab {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-soft);
+      color: var(--text-sub);
+      padding: 6px 12px;
+      border-radius: 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .qa-cat-tab.active {
+      background: var(--coral-main);
+      color: #FFFFFF;
+      border-color: var(--coral-main);
+    }
+
+    .qa-card {
+      background: #FFFFFF;
+      border: 2px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 14px 15px;
+      margin-bottom: 12px;
+    }
+
+    .qa-cat-badge {
+      display: inline-block;
+      background: var(--pink-soft);
+      color: var(--coral-dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+
+    .qa-title {
+      font-size: 0.96rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .qa-q-box {
+      background: #E8F8F2;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 0.83rem;
+      margin-bottom: 8px;
+      white-space: pre-wrap;
+    }
+
+    .qa-a-box {
+      background: #FFF9EE;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 0.83rem;
+      margin-bottom: 8px;
+      white-space: pre-wrap;
+    }
+
+    .qa-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .qa-like-btn {
+      background: var(--amber-soft);
+      color: #B45309;
+      border: 1.5px solid #FDE68A;
+      border-radius: 14px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .qa-link-btn {
+      font-size: 0.76rem;
+      color: var(--teal-main);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .loading-msg {
+      text-align: center;
+      padding: 36px 12px;
+      color: var(--text-sub);
+      font-size: 0.88rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 26px;
+      font-size: 0.74rem;
+      color: var(--text-sub);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       画面1：統合メインメニュー
+  ========================================== -->
+  <section id="view-menu" class="view-section active">
+    <header class="portal-header">
+      <h1 id="portalTitle">🌸 スタッフ業務ポータル / 株式会社宗前堂</h1>
+      <div class="sub" id="portalSubtitle">統合メニュー</div>
+    </header>
+
+    <div class="container">
+      <!-- キャラクター＆日付 -->
+      <div class="hero-card">
+        <img id="heroCharImg" src="" alt="そうぜん先生" class="hero-char">
+        <div class="hero-right">
+          <div class="hero-balloon" id="heroMessage"></div>
+          <div class="today-chip" id="todayDateChip">📅 読み込み中...</div>
+        </div>
+      </div>
+
+      <!-- 2列×3段 メニューグリッド（設定から自動生成） -->
+      <div class="menu-grid" id="menuGrid"></div>
+
+      <footer>&copy; 株式会社宗前堂 All Rights Reserved.</footer>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       画面2：シフト報告＆確認（アプリ内ビュー）
+  ========================================== -->
+  <section id="view-shift" class="view-section">
+    <div class="sub-header">
+      <div class="sub-header-inner">
+        <button type="button" class="back-btn" onclick="switchView('menu')">← メニュー</button>
+        <div class="sub-header-title">📅 シフト確認＆勤務報告</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="action-grid">
+        <a id="shiftReqLink" href="#" target="_blank" rel="noopener noreferrer" class="action-btn btn-shift-req">
+          <span>📅 シフト希望を<br>提出する</span>
+        </a>
+        <a id="workRepLink" href="#" target="_blank" rel="noopener noreferrer" class="action-btn btn-work-rep">
+          <span>⏰ 本日の勤務報告<br>をする</span>
+        </a>
+      </div>
+
+      <div id="todayPickupBox" class="today-pickup" style="display:none;">
+        <div class="today-pickup-top">
+          <span id="todayPickupTitle" class="today-pickup-title">📌 本日の出勤</span>
+          <button type="button" class="jump-today-btn" onclick="jumpToToday()">今日へ移動 ↓</button>
+        </div>
+        <div id="todayPickupList" class="pickup-list"></div>
+      </div>
+
+      <div class="control-panel">
+        <div class="month-tabs" id="monthTabs"></div>
+        <div class="filter-row">
+          <span style="font-size:0.78rem;font-weight:700;color:var(--text-sub);">👤 表示：</span>
+          <select id="staffFilter" class="staff-select" onchange="renderShiftCards()">
+            <option value="ALL">全員表示</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="summary-bar">
+        <div id="shiftSummaryText">読み込み中...</div>
+        <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;">
+          <input type="checkbox" id="hideEmptyDays" onchange="renderShiftCards()">
+          <span>出勤なしの日を隠す</span>
+        </label>
+      </div>
+
+      <div id="shiftListContainer">
+        <div class="loading-msg">シフト表データを読み込み中...</div>
+      </div>
+
+      <div id="handoverSection" class="handover-box" style="display:none;">
+        <div style="font-size:0.9rem;font-weight:700;">📝 直近の業務連絡・引き継ぎ</div>
+        <div id="handoverList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       画面3：質問箱＆みんなのQ&A（アプリ内ビュー）
+  ========================================== -->
+  <section id="view-qa" class="view-section">
+    <div class="sub-header">
+      <div class="sub-header-inner">
+        <button type="button" class="back-btn" onclick="switchView('menu')">← メニュー</button>
+        <div class="sub-header-title">✉️ 質問箱＆みんなのQ&A</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <a id="qaFormLink" href="#" target="_blank" rel="noopener noreferrer" class="qa-post-btn">
+        ✏️ 新しく質問を投稿する（Googleフォーム）
+      </a>
+
+      <input type="text" id="qaSearchInput" class="qa-search" placeholder="🔍 キーワード検索（例：膝痛、めまい、受付...）" oninput="renderQaList()">
+
+      <div class="qa-cat-tabs" id="qaCatTabs"></div>
+
+      <div class="summary-bar">
+        <div id="qaCountText">読み込み中...</div>
+        <select id="qaSortSelect" class="staff-select" style="flex:0 0 auto;padding:4px 8px;font-size:0.76rem;" onchange="renderQaList()">
+          <option value="newest">新着順</option>
+          <option value="likes">参考になった順</option>
+        </select>
+      </div>
+
+      <div id="qaListContainer">
+        <div class="loading-msg">Q&Aデータを読み込み中...</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* =====================================================================
+       ★ 設定エリア（文字・色・URL・順番はここを書き換えるだけで変更できます）
+    ===================================================================== */
+    const PORTAL_CONFIG = {
+      title: '🌸 スタッフ業務ポータル / 株式会社宗前堂',
+      subtitle: '統合メニュー',
+      charImageUrl: 'https://lh3.googleusercontent.com/d/1OM08rqgvlVo5DTUvY0_10yQ_TeD8aRpX',
+      charFallbackUrl: 'https://drive.google.com/uc?export=view&id=1OM08rqgvlVo5DTUvY0_10yQ_TeD8aRpX',
+      greetingHtml: '何でも聞いて！😊<br>今日も1日よろしく<br>お願いします！',
+
+      // ▼ 各GASの「ウェブアプリURL（/execで終わるURL）」をここに貼る
+      shiftGasApiUrl: '【ここにシフト管理GASのURL】?api=shift',
+      qaGasApiUrl:    '【ここに質問箱GASのURL】?api=qa',
+
+      // ▼ 各GoogleフォームのURLをここに貼る
+      shiftRequestFormUrl: '【ここにシフト希望フォームのURL】',
+      workReportFormUrl:   '【ここに勤務報告フォームのURL】',
+      qaPostFormUrl:       '【ここに質問箱投稿フォームのURL】'
+    };
+
+    // ▼ メニューの並び順・文字・色（mint / yellow / blue / coral / purple / sky）を自由に変更可能
+    const MENU_ITEMS = [
+      {
+        id: 'attendance',
+        title: '出退勤報告',
+        desc: '出勤・退勤の打刻や報告はこちらから',
+        icon: '⏰',
+        color: 'mint',
+        type: 'link',
+        url: '【ここに出退勤フォームのURL】'
+      },
+      {
+        id: 'shift',
+        title: 'シフト報告＆確認',
+        desc: '希望シフトの提出・確定シフト表の確認',
+        icon: '📅',
+        color: 'yellow',
+        type: 'view',
+        targetView: 'shift'
+      },
+      {
+        id: 'reservation',
+        title: '銀座院 予約システム',
+        desc: '銀座そうぜん鍼灸院の予約状況の確認・管理',
+        icon: '📋',
+        color: 'blue',
+        type: 'link',
+        url: '【ここに銀座そうぜん鍼灸院予約システムのURL】'
+      },
+      {
+        id: 'qa',
+        title: '質問箱<br>（投稿＆回答一覧）',
+        desc: '施術・業務に関する疑問、相談の匿名投稿・回答',
+        icon: '✉️',
+        color: 'coral',
+        badge: 'Q&Aが<br>見れるよ！',
+        type: 'view',
+        targetView: 'qa'
+      },
+      {
+        id: 'case_report',
+        title: '症例報告フォーム',
+        desc: 'ポータル掲載用の症例・治療経過の共有',
+        icon: '📝',
+        color: 'purple',
+        type: 'link',
+        url: '【ここに症例報告フォームのURL】'
+      },
+      {
+        id: 'group_portal',
+        title: 'グループ<br>ポータルサイト',
+        desc: '各種マニュアル、共有資料のトップへ移動',
+        icon: '🌐',
+        color: 'sky',
+        ribbon: 'ハブ',
+        type: 'link',
+        url: '【ここにグループポータルサイトのURL】'
+      }
+    ];
+
+    /* =====================================================================
+       アプリ本体ロジック
+    ===================================================================== */
+    let shiftMonthsData = [];
+    let shiftHandovers = [];
+    let shiftLoaded = false;
+    let activeMonthIndex = 0;
+
+    let qaAllItems = [];
+    let qaLoaded = false;
+    let activeQaCategory = 'すべて';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initMenu();
+      updateTodayChip();
+      document.getElementById('shiftReqLink').href = PORTAL_CONFIG.shiftRequestFormUrl;
+      document.getElementById('workRepLink').href = PORTAL_CONFIG.workReportFormUrl;
+      document.getElementById('qaFormLink').href = PORTAL_CONFIG.qaPostFormUrl;
+    });
+
+    function initMenu() {
+      document.getElementById('portalTitle').textContent = PORTAL_CONFIG.title;
+      document.getElementById('portalSubtitle').textContent = PORTAL_CONFIG.subtitle;
+      document.getElementById('heroMessage').innerHTML = PORTAL_CONFIG.greetingHtml;
+
+      const img = document.getElementById('heroCharImg');
+      img.src = PORTAL_CONFIG.charImageUrl;
+      img.onerror = () => { img.src = PORTAL_CONFIG.charFallbackUrl; };
+
+      const grid = document.getElementById('menuGrid');
+      grid.innerHTML = MENU_ITEMS.map(item => {
+        const badgeHtml = item.badge ? `<span class="badge-circle">${item.badge}</span>` : '';
+        const ribbonHtml = item.ribbon ? `<span class="ribbon-tag">${escapeHtml(item.ribbon)}</span>` : '';
+        const inner = `
+          ${badgeHtml}
+          ${ribbonHtml}
+          <div class="menu-title-row">
+            <span class="menu-icon">${item.icon}</span>
+            <span>${item.title}</span>
+          </div>
+          <div class="menu-desc">${escapeHtml(item.desc)}</div>
+        `;
+
+        if (item.type === 'view') {
+          return `<button type="button" class="menu-card theme-${item.color}" onclick="switchView('${item.targetView}')">${inner}</button>`;
+        } else {
+          return `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="menu-card theme-${item.color}">${inner}</a>`;
+        }
+      }).join('');
+    }
+
+    function updateTodayChip() {
+      const now = new Date();
+      const dows = ['日', '月', '火', '水', '木', '金', '土'];
+      const str = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日（${dows[now.getDay()]}）`;
+      document.getElementById('todayDateChip').textContent = '📅 ' + str;
+    }
+
+    function switchView(viewName) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.getElementById('view-' + viewName).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+
+      if (viewName === 'shift' && !shiftLoaded) loadShiftData();
+      if (viewName === 'qa' && !qaLoaded) loadQaData();
+    }
+
+    /* ----- シフト確認ロジック ----- */
+    async function loadShiftData() {
+      const container = document.getElementById('shiftListContainer');
+      if (!PORTAL_CONFIG.shiftGasApiUrl.startsWith('http')) {
+        container.innerHTML = '<div class="loading-msg">設定エリアにシフト管理GASのURLを設定してください。</div>';
+        return;
+      }
+      try {
+        const res = await fetch(PORTAL_CONFIG.shiftGasApiUrl);
+        const data = await res.json();
+        if (!data || data.status !== 'success' || !Array.isArray(data.months)) {
+          container.innerHTML = '<div class="loading-msg">シフトデータを取得できませんでした。</div>';
+          return;
+        }
+        shiftLoaded = true;
+        shiftMonthsData = data.months;
+        shiftHandovers = Array.isArray(data.handovers) ? data.handovers : [];
+
+        const todayIso = getTodayIso();
+        renderTodayPickup(todayIso);
+        renderHandovers();
+
+        const currentYm = todayIso.slice(0, 7);
+        const idx = shiftMonthsData.findIndex(m => m.days.some(d => d.rawDate.startsWith(currentYm)));
+        activeMonthIndex = idx >= 0 ? idx : 0;
+
+        renderMonthTabs();
+        updateStaffOptions();
+        renderShiftCards();
+      } catch (e) {
+        container.innerHTML = '<div class="loading-msg">通信エラーが発生しました。GASの公開設定（全員）をご確認ください。</div>';
+      }
+    }
+
+    function renderTodayPickup(todayIso) {
+      let foundDay = null;
+      for (const m of shiftMonthsData) {
+        const f = m.days.find(d => d.rawDate === todayIso);
+        if (f) { foundDay = f; break; }
+      }
+      const box = document.getElementById('todayPickupBox');
+      if (!foundDay) { box.style.display = 'none'; return; }
+      box.style.display = 'block';
+      document.getElementById('todayPickupTitle').textContent = `📌 本日（${foundDay.date}・${foundDay.dow}）の出勤`;
+      document.getElementById('todayPickupList').innerHTML = foundDay.shifts.length
+        ? foundDay.shifts.map(s => `<span class="pickup-chip">👤 ${escapeHtml(s.staff)}：${escapeHtml(s.time)}</span>`).join('')
+        : '<span class="pickup-chip">本日のシフト予定はありません</span>';
+    }
+
+    function jumpToToday() {
+      const todayIso = getTodayIso();
+      const idx = shiftMonthsData.findIndex(m => m.days.some(d => d.rawDate === todayIso));
+      if (idx >= 0 && idx !== activeMonthIndex) {
+        activeMonthIndex = idx;
+        renderMonthTabs();
+        updateStaffOptions();
+        renderShiftCards();
+      }
+      setTimeout(() => {
+        const el = document.getElementById('day-' + todayIso);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 80);
+    }
+
+    function renderHandovers() {
+      const sec = document.getElementById('handoverSection');
+      if (!shiftHandovers.length) { sec.style.display = 'none'; return; }
+      sec.style.display = 'block';
+      document.getElementById('handoverList').innerHTML = shiftHandovers.map(h => `
+        <div class="handover-item">
+          <div class="handover-meta">${escapeHtml(h.date)} ／ ${escapeHtml(h.staff)}</div>
+          <div>${escapeHtml(h.note)}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderMonthTabs() {
+      document.getElementById('monthTabs').innerHTML = shiftMonthsData.map((m, idx) => `
+        <button type="button" class="month-tab ${idx === activeMonthIndex ? 'active' : ''}" onclick="selectMonth(${idx})">${escapeHtml(m.label)}</button>
+      `).join('');
+    }
+
+    function selectMonth(idx) {
+      activeMonthIndex = idx;
+      document.getElementById('staffFilter').value = 'ALL';
+      renderMonthTabs();
+      updateStaffOptions();
+      renderShiftCards();
+    }
+
+    function updateStaffOptions() {
+      const sel = document.getElementById('staffFilter');
+      const names = (shiftMonthsData[activeMonthIndex] || {}).staffNames || [];
+      sel.innerHTML = `<option value="ALL">全員表示（${names.length}名）</option>` +
+        names.map(n => `<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
+    }
+
+    function renderShiftCards() {
+      const current = shiftMonthsData[activeMonthIndex];
+      if (!current) return;
+      const selected = document.getElementById('staffFilter').value;
+      const hideEmpty = document.getElementById('hideEmptyDays').checked;
+      const todayIso = getTodayIso();
+      let daysCnt = 0, allDayCnt = 0, partCnt = 0;
+
+      const html = current.days.map(day => {
+        const list = selected === 'ALL' ? day.shifts : day.shifts.filter(s => s.staff === selected);
+        if (list.length > 0) {
+          daysCnt++;
+          if (selected !== 'ALL') {
+            if (list[0].time.includes('終日')) allDayCnt++; else partCnt++;
+          }
+        }
+        if (hideEmpty && list.length === 0) return '';
+
+        const isToday = day.rawDate === todayIso;
+        let dowCls = 'dow-badge';
+        if (day.dow === '土') dowCls += ' dow-sat';
+        if (day.dow === '日' || day.holiday) dowCls += ' dow-sun';
+
+        const pills = list.length
+          ? `<div class="shift-pills">${list.map(s => `
+              <div class="shift-pill ${s.time.includes('終日') ? 'pill-allday' : 'pill-time'}">
+                <span>👤 ${escapeHtml(s.staff)}</span>
+                <span class="pill-time-text">${escapeHtml(s.time)}</span>
+              </div>`).join('')}</div>`
+          : '<div style="font-size:0.78rem;color:#B8ABA0;text-align:center;padding:4px 0;">予定なし</div>';
+
+        return `
+          <div id="day-${escapeHtml(day.rawDate)}" class="day-card ${isToday ? 'today-card' : ''}">
+            <div class="day-header">
+              <div class="day-title">
+                <span>${escapeHtml(day.date)}</span>
+                <span class="${dowCls}">${escapeHtml(day.dow)}</span>
+                ${day.holiday ? `<span class="holiday-badge">${escapeHtml(day.holiday)}</span>` : ''}
+                ${isToday ? '<span class="today-pill">本日</span>' : ''}
+              </div>
+              <div style="font-size:0.72rem;color:var(--text-sub);font-weight:700;">${list.length ? list.length + '名出勤' : ''}</div>
+            </div>
+            ${pills}
+          </div>`;
+      }).join('');
+
+      document.getElementById('shiftSummaryText').textContent = selected === 'ALL'
+        ? `稼働日数：${daysCnt}日`
+        : `${selected}：出勤${daysCnt}日（終日${allDayCnt}・時間指定${partCnt}）`;
+      document.getElementById('shiftListContainer').innerHTML = html || '<div class="loading-msg">該当する予定がありません🌱</div>';
+    }
+
+    /* ----- 質問箱（Q&A）ロジック ----- */
+    async function loadQaData() {
+      const container = document.getElementById('qaListContainer');
+      if (!PORTAL_CONFIG.qaGasApiUrl.startsWith('http')) {
+        container.innerHTML = '<div class="loading-msg">設定エリアに質問箱GASのURLを設定してください。</div>';
+        return;
+      }
+      try {
+        const res = await fetch(PORTAL_CONFIG.qaGasApiUrl);
+        const data = await res.json();
+        const items = Array.isArray(data) ? data : (data.items || data.data || []);
+        qaLoaded = true;
+        qaAllItems = items;
+        renderQaCategories();
+        renderQaList();
+      } catch (e) {
+        container.innerHTML = '<div class="loading-msg">Q&Aの読み込みに失敗しました。GASの公開設定をご確認ください。</div>';
+      }
+    }
+
+    function renderQaCategories() {
+      const cats = ['すべて', ...new Set(qaAllItems.map(i => i.category).filter(Boolean))];
+      document.getElementById('qaCatTabs').innerHTML = cats.map(c => `
+        <button type="button" class="qa-cat-tab ${c === activeQaCategory ? 'active' : ''}" onclick="selectQaCat('${escapeHtml(c)}')">${escapeHtml(c)}</button>
+      `).join('');
+    }
+
+    function selectQaCat(cat) {
+      activeQaCategory = cat;
+      renderQaCategories();
+      renderQaList();
+    }
+
+    function renderQaList() {
+      const kw = (document.getElementById('qaSearchInput').value || '').trim().toLowerCase();
+      const sort = document.getElementById('qaSortSelect').value;
+
+      let list = qaAllItems.filter(item => {
+        if (activeQaCategory !== 'すべて' && item.category !== activeQaCategory) return false;
+        if (!kw) return true;
+        const text = `${item.title || ''} ${item.detail || ''} ${item.answer || ''} ${item.category || ''}`.toLowerCase();
+        return text.includes(kw);
+      });
+
+      if (sort === 'likes') {
+        list = [...list].sort((a, b) => (Number(b.likes) || 0) - (Number(a.likes) || 0));
+      } else {
+        list = [...list].reverse();
+      }
+
+      document.getElementById('qaCountText').textContent = `表示中：${list.length}件のQ&A`;
+      document.getElementById('qaListContainer').innerHTML = list.length ? list.map(item => `
+        <div class="qa-card">
+          ${item.category ? `<span class="qa-cat-badge">${escapeHtml(item.category)}</span>` : ''}
+          <div class="qa-title">${escapeHtml(item.title || '無題の質問')}</div>
+          <div class="qa-q-box"><strong>スタッフの質問：</strong>\n${escapeHtml(item.detail || '')}</div>
+          <div class="qa-a-box"><strong>そうぜん先生の回答：</strong>\n${escapeHtml(item.answer || '')}</div>
+          <div class="qa-footer">
+            <div>
+              ${item.material ? `<a href="${escapeHtml(item.material)}" target="_blank" class="qa-link-btn">📎 資料を見る</a> ` : ''}
+              ${item.refLink ? `<a href="${escapeHtml(item.refLink)}" target="_blank" class="qa-link-btn">🔗 参考リンク</a>` : ''}
+            </div>
+            <span class="qa-like-btn">👏 参考になった！ ${Number(item.likes) || 0}</span>
+          </div>
+        </div>
+      `).join('') : '<div class="loading-msg">該当するQ&Aが見つかりませんでした🌱</div>';
+    }
+
+    function getTodayIso() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
