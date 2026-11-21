@@ -247,6 +247,13 @@
       border-radius: 10px;
     }
 
+    /* 横幅いっぱいのカード（7枠目など） */
+    .menu-card.full-width {
+      grid-column: 1 / -1;
+      min-height: 88px;
+      padding: 14px 16px;
+    }
+
     /* ===== サブ画面（シフト＆質問箱）共通ヘッダー ===== */
     .sub-header {
       background: linear-gradient(135deg, #FF9E80 0%, #FF8E72 100%);
@@ -694,7 +701,7 @@
         </div>
       </div>
 
-      <!-- 2列×3段 メニューグリッド（設定から自動生成） -->
+      <!-- メニューグリッド（設定から自動生成） -->
       <div class="menu-grid" id="menuGrid"></div>
 
       <footer>&copy; 株式会社宗前堂 All Rights Reserved.</footer>
@@ -871,6 +878,16 @@
         ribbon: 'ハブ',
         type: 'link',
         url: '【ここにグループポータルサイトのURL】'
+      },
+      {
+        id: 'contract',
+        title: '契約書フォーム',
+        desc: '各種契約や同意書の入力・提出はこちらから',
+        icon: '📄',
+        color: 'purple',
+        fullWidth: true,
+        type: 'link',
+        url: '【ここに契約書フォームのURL】'
       }
     ];
 
@@ -907,6 +924,7 @@
       grid.innerHTML = MENU_ITEMS.map(item => {
         const badgeHtml = item.badge ? `<span class="badge-circle">${item.badge}</span>` : '';
         const ribbonHtml = item.ribbon ? `<span class="ribbon-tag">${escapeHtml(item.ribbon)}</span>` : '';
+        const widthCls = item.fullWidth ? ' full-width' : '';
         const inner = `
           ${badgeHtml}
           ${ribbonHtml}
@@ -918,9 +936,9 @@
         `;
 
         if (item.type === 'view') {
-          return `<button type="button" class="menu-card theme-${item.color}" onclick="switchView('${item.targetView}')">${inner}</button>`;
+          return `<button type="button" class="menu-card theme-${item.color}${widthCls}" onclick="switchView('${item.targetView}')">${inner}</button>`;
         } else {
-          return `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="menu-card theme-${item.color}">${inner}</a>`;
+          return `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="menu-card theme-${item.color}${widthCls}">${inner}</a>`;
         }
       }).join('');
     }
