@@ -309,7 +309,7 @@
       margin-bottom: 4px;
     }
 
-    /* ===== サブ画面（シフト＆質問箱）共通ヘッダー ===== */
+    /* ===== サブ画面（シフト＆質問箱＆予約メニュー）共通ヘッダー ===== */
     .sub-header {
       background: linear-gradient(135deg, var(--rose-header-1) 0%, var(--rose-header-2) 100%);
       color: #FFFFFF;
@@ -346,6 +346,66 @@
     .sub-header-title {
       font-size: 1.02rem;
       font-weight: 700;
+    }
+
+    /* ===== 銀座院予約システム選択画面パーツ ===== */
+    .reserve-choice-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .reserve-choice-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text-main);
+      padding: 20px 18px;
+      border-radius: 24px;
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.16s ease;
+    }
+
+    .reserve-choice-card:active {
+      transform: scale(0.98);
+    }
+
+    .reserve-choice-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.45rem;
+      box-shadow: 0 3px 8px rgba(74, 62, 58, 0.08);
+    }
+
+    .reserve-choice-body {
+      flex: 1;
+    }
+
+    .reserve-choice-title {
+      font-size: 1.04rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .reserve-choice-desc {
+      font-size: 0.78rem;
+      color: #5D504B;
+      line-height: 1.45;
+    }
+
+    .reserve-choice-arrow {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-sub);
     }
 
     /* ===== シフト画面パーツ ===== */
@@ -864,6 +924,40 @@
     </div>
   </section>
 
+  <!-- ==========================================
+       画面4：銀座院 予約システム 選択メニュー（アプリ内ビュー）
+  ========================================== -->
+  <section id="view-reserve-menu" class="view-section">
+    <div class="sub-header">
+      <div class="sub-header-inner">
+        <button type="button" class="back-btn" onclick="switchView('menu')">← メニュー</button>
+        <div class="sub-header-title">銀座院 予約システム</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="reserve-choice-stack">
+        <a href="https://sozen-harikyu.github.io/sozen-reserve/" target="_blank" rel="noopener noreferrer" class="reserve-choice-card theme-babyblue">
+          <div class="reserve-choice-icon">📅</div>
+          <div class="reserve-choice-body">
+            <div class="reserve-choice-title">予約画面を開く</div>
+            <div class="reserve-choice-desc">患者様へのご案内・受付での代理予約はこちらから</div>
+          </div>
+          <div class="reserve-choice-arrow">›</div>
+        </a>
+
+        <a href="https://sozen-harikyu.github.io/sozen-reserve/admin.html" target="_blank" rel="noopener noreferrer" class="reserve-choice-card theme-honey">
+          <div class="reserve-choice-icon">⚙️</div>
+          <div class="reserve-choice-body">
+            <div class="reserve-choice-title">予約管理・設定画面を開く</div>
+            <div class="reserve-choice-desc">予約変更・キャンセル・予約不可設定・受付日数などの基本設定</div>
+          </div>
+          <div class="reserve-choice-arrow">›</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <script>
     /* =====================================================================
        ★ 設定エリア（文字・色・URL・順番はここを書き換えるだけで変更できます）
@@ -919,11 +1013,11 @@
       {
         id: 'reservation',
         title: '銀座院<br>予約システム',
-        desc: '銀座そうぜん鍼灸院の予約状況の確認・管理',
+        desc: '予約画面・管理設定のメニューを開く',
         icon: 'clipboard',
         color: 'babyblue',
-        type: 'link',
-        url: 'https://sozen-harikyu.github.io/sozen-reserve/'
+        type: 'view',
+        targetView: 'reserve-menu'
       },
       {
         id: 'qa',
