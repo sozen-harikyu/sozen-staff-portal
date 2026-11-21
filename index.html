@@ -9,20 +9,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-cream: #FFFBF5;
-      --card-bg: #FFFFFF;
-      --coral-header: #FF9A8B;
-      --coral-main: #FF8E72;
-      --coral-dark: #F26B4E;
-      --teal-main: #2A9D8F;
-      --teal-soft: #E6F5F3;
-      --amber-soft: #FFF4E0;
-      --pink-soft: #FFEFF2;
-      --blue-soft: #EEF6FF;
-      --blue-accent: #2563EB;
-      --text-main: #4A3F35;
-      --text-sub: #7D6F63;
-      --border-soft: #F0E6D8;
+      --bg-ivory: #FDF9F6;
+      --card-white: #FFFFFF;
+      --rose-header-1: #D9A79C;
+      --rose-header-2: #CFA095;
+      --rose-accent: #C98276;
+      --rose-deep: #B56E63;
+      --sage-accent: #6E9E8B;
+      --sage-soft: #E9F3EE;
+      --blush-soft: #F7EAE6;
+      --cream-soft: #FBF4E8;
+      --blue-soft: #EAF2FA;
+      --blue-accent: #5C89B5;
+      --text-main: #4A3E3A;
+      --text-sub: #8A7B75;
+      --border-soft: #EFE6E1;
+      --shadow-soft: 0 6px 20px rgba(122, 95, 86, 0.07);
     }
 
     * {
@@ -37,10 +39,14 @@
 
     body {
       font-family: 'Zen Maru Gothic', -apple-system, BlinkMacSystemFont, "Hiragino Maru Gothic ProN", sans-serif;
-      background-color: var(--bg-cream);
+      background-color: var(--bg-ivory);
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(235, 214, 206, 0.35) 0%, transparent 40%),
+        radial-gradient(circle at 88% 82%, rgba(211, 228, 216, 0.35) 0%, transparent 42%);
+      background-attachment: fixed;
       color: var(--text-main);
       line-height: 1.55;
-      padding-bottom: 48px;
+      padding-bottom: 52px;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -50,7 +56,7 @@
     }
     .view-section.active {
       display: block;
-      animation: fadeIn 0.2s ease;
+      animation: fadeIn 0.22s ease;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
@@ -59,55 +65,69 @@
 
     /* 共通コンテナ */
     .container {
-      max-width: 540px;
+      max-width: 520px;
       margin: 0 auto;
       padding: 0 16px;
     }
 
     /* ===== メインメニュー画面 ===== */
     .portal-header {
-      background: linear-gradient(135deg, #FFA896 0%, #FF8E72 100%);
+      background: linear-gradient(135deg, var(--rose-header-1) 0%, var(--rose-header-2) 100%);
       color: #FFFFFF;
       text-align: center;
-      padding: 18px 16px 20px;
-      border-radius: 0 0 26px 26px;
-      box-shadow: 0 4px 14px rgba(255, 142, 114, 0.22);
-      margin-bottom: 16px;
+      padding: 20px 16px 22px;
+      border-radius: 0 0 28px 28px;
+      box-shadow: 0 6px 18px rgba(197, 145, 134, 0.25);
+      margin-bottom: 18px;
     }
 
     .portal-header h1 {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-weight: 700;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
     }
 
     .portal-header .sub {
-      font-size: 0.85rem;
-      font-weight: 700;
-      opacity: 0.95;
-      margin-top: 2px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      opacity: 0.92;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
     }
 
     /* キャラクター＆日付エリア */
     .hero-card {
-      background: #FFFFFF;
-      border: 2px solid var(--border-soft);
-      border-radius: 24px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
+      background: var(--card-white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 26px;
+      padding: 16px;
+      margin-bottom: 18px;
       display: flex;
       align-items: center;
       gap: 14px;
-      box-shadow: 0 4px 12px rgba(74, 63, 53, 0.05);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-char-wrap {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #F9EFEA 0%, #F3E3DC 100%);
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 4px 12px rgba(181, 110, 99, 0.14);
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 4px 4px 0;
     }
 
     .hero-char {
-      width: 82px;
-      height: 82px;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
-      flex-shrink: 0;
-      border-radius: 16px;
-      background: var(--bg-cream);
+      object-position: bottom center;
     }
 
     .hero-right {
@@ -119,42 +139,47 @@
 
     .hero-balloon {
       position: relative;
-      background: #FCD59B;
+      background: var(--cream-soft);
+      border: 1px solid #F2E4CE;
       color: var(--text-main);
       border-radius: 18px;
       padding: 10px 14px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
       text-align: center;
-      line-height: 1.45;
+      line-height: 1.48;
     }
 
     .hero-balloon::before {
       content: '';
       position: absolute;
-      left: -8px;
+      left: -7px;
       top: 50%;
       transform: translateY(-50%);
-      border-top: 7px solid transparent;
-      border-right: 9px solid #FCD59B;
-      border-bottom: 7px solid transparent;
+      border-top: 6px solid transparent;
+      border-right: 8px solid var(--cream-soft);
+      border-bottom: 6px solid transparent;
     }
 
     .today-chip {
-      background: #F9E6DF;
-      color: var(--text-main);
+      background: var(--blush-soft);
+      color: #6B534D;
       border-radius: 14px;
-      padding: 4px 12px;
-      font-size: 0.78rem;
+      padding: 5px 12px;
+      font-size: 0.77rem;
       font-weight: 700;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
 
     /* 2列メニューグリッド */
     .menu-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 13px;
       margin-bottom: 18px;
     }
 
@@ -167,62 +192,86 @@
       text-align: center;
       text-decoration: none;
       color: var(--text-main);
-      border-radius: 22px;
-      padding: 18px 12px 16px;
-      min-height: 132px;
+      border-radius: 24px;
+      padding: 16px 12px 15px;
+      min-height: 138px;
       cursor: pointer;
-      border: 2px solid transparent;
-      box-shadow: 0 4px 12px rgba(74, 63, 53, 0.06);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      border: 1.5px solid rgba(255, 255, 255, 0.7);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
       overflow: visible;
+      font-family: inherit;
     }
 
     .menu-card:active {
       transform: scale(0.97);
     }
 
-    .menu-title-row {
+    .menu-header-row {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      font-size: 0.98rem;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 6px;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
-    .menu-icon {
-      font-size: 1.2rem;
+    .icon-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(74, 62, 58, 0.08);
+      color: #5C4E49;
+    }
+
+    .icon-circle svg {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.85;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .menu-title-text {
+      font-size: 0.94rem;
+      font-weight: 700;
+      line-height: 1.28;
+      text-align: left;
     }
 
     .menu-desc {
-      font-size: 0.73rem;
-      color: #5C5046;
+      font-size: 0.72rem;
+      color: #5D504B;
       font-weight: 500;
-      line-height: 1.4;
+      line-height: 1.42;
     }
 
-    /* パステルカラーテーマ */
-    .theme-mint   { background: #CBEFE0; border-color: #B4E5D0; }
-    .theme-yellow { background: #FCE0AE; border-color: #F6CF8C; }
-    .theme-blue   { background: #CDE6FB; border-color: #B3D7F7; }
-    .theme-coral  { background: #FADAC8; border-color: #EE9B82; }
-    .theme-purple { background: #E4D4FA; border-color: #D1B9F5; }
-    .theme-sky    { background: #BCEBFF; border-color: #98DDFB; }
+    /* 大人可愛い・くすみパステル 7色テーマ（すべて別色） */
+    .theme-sage     { background: #D3E4D8; border-color: #C3D9C9; }
+    .theme-honey    { background: #F6E5C3; border-color: #ECD6AB; }
+    .theme-babyblue { background: #D6E6F4; border-color: #C2D9EE; }
+    .theme-peach    { background: #F6D8CE; border-color: #EBC4B8; }
+    .theme-lilac    { background: #E6DCF3; border-color: #D7C8EC; }
+    .theme-aqua     { background: #CEE6EA; border-color: #B9DAE0; }
+    .theme-milktea  { background: #E6D3C9; border-color: #D9C0B4; }
 
     /* 丸バッジ（例：Q&Aが見れるよ！） */
     .badge-circle {
       position: absolute;
       top: -10px;
       right: -6px;
-      background: #F46C5E;
+      background: #E08377;
       color: #FFFFFF;
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       font-weight: 700;
       line-height: 1.15;
-      padding: 6px 8px;
+      padding: 6px;
       border-radius: 50%;
       width: 54px;
       height: 54px;
@@ -230,37 +279,43 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      box-shadow: 0 3px 8px rgba(244, 108, 94, 0.35);
+      box-shadow: 0 3px 10px rgba(224, 131, 119, 0.35);
       transform: rotate(8deg);
+      border: 1.5px solid #FFFFFF;
     }
 
-    /* 斜めリボン（例：ハブ） */
+    /* リボンタグ（例：ハブ） */
     .ribbon-tag {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      background: #4BA3E3;
+      top: 9px;
+      right: 9px;
+      background: #7FAAC2;
       color: #FFFFFF;
-      font-size: 0.66rem;
+      font-size: 0.64rem;
       font-weight: 700;
-      padding: 2px 8px;
+      padding: 2px 9px;
       border-radius: 10px;
+      letter-spacing: 0.04em;
     }
 
-    /* 横幅いっぱいのカード（7枠目など） */
+    /* 横幅いっぱいのカード（7枠目：契約書フォーム） */
     .menu-card.full-width {
       grid-column: 1 / -1;
-      min-height: 88px;
-      padding: 14px 16px;
+      min-height: 86px;
+      padding: 14px 18px;
+    }
+
+    .menu-card.full-width .menu-header-row {
+      margin-bottom: 4px;
     }
 
     /* ===== サブ画面（シフト＆質問箱）共通ヘッダー ===== */
     .sub-header {
-      background: linear-gradient(135deg, #FF9E80 0%, #FF8E72 100%);
+      background: linear-gradient(135deg, var(--rose-header-1) 0%, var(--rose-header-2) 100%);
       color: #FFFFFF;
       padding: 14px 16px 18px;
       border-radius: 0 0 24px 24px;
-      box-shadow: 0 4px 14px rgba(255, 142, 114, 0.22);
+      box-shadow: 0 4px 14px rgba(197, 145, 134, 0.22);
       margin-bottom: 16px;
       position: sticky;
       top: 0;
@@ -268,7 +323,7 @@
     }
 
     .sub-header-inner {
-      max-width: 540px;
+      max-width: 520px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -278,10 +333,10 @@
     .back-btn {
       background: rgba(255, 255, 255, 0.25);
       color: #FFFFFF;
-      border: 1.5px solid rgba(255, 255, 255, 0.6);
+      border: 1.5px solid rgba(255, 255, 255, 0.65);
       border-radius: 14px;
       padding: 6px 12px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
@@ -289,7 +344,7 @@
     }
 
     .sub-header-title {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 700;
     }
 
@@ -310,21 +365,23 @@
       text-decoration: none;
       color: #FFFFFF;
       font-weight: 700;
-      font-size: 0.85rem;
-      padding: 12px 10px;
+      font-size: 0.84rem;
+      padding: 13px 10px;
       border-radius: 20px;
       line-height: 1.35;
+      box-shadow: 0 4px 12px rgba(74, 62, 58, 0.08);
     }
 
-    .btn-shift-req { background: linear-gradient(135deg, #FF9E80 0%, #F26B4E 100%); }
-    .btn-work-rep  { background: linear-gradient(135deg, #38B2AC 0%, #2A9D8F 100%); }
+    .btn-shift-req { background: linear-gradient(135deg, #DFA397 0%, #C98276 100%); }
+    .btn-work-rep  { background: linear-gradient(135deg, #86B3A1 0%, #6E9E8B 100%); }
 
     .today-pickup {
       background: #FFFFFF;
-      border: 2px solid var(--coral-main);
-      border-radius: 20px;
-      padding: 13px 15px;
+      border: 1.5px solid #E5B9AF;
+      border-radius: 22px;
+      padding: 14px 15px;
       margin-bottom: 14px;
+      box-shadow: var(--shadow-soft);
     }
 
     .today-pickup-top {
@@ -336,15 +393,15 @@
     }
 
     .today-pickup-title {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
-      color: var(--coral-dark);
+      color: var(--rose-deep);
     }
 
     .jump-today-btn {
-      background: var(--amber-soft);
-      color: #B45309;
-      border: 1.5px solid #FDE68A;
+      background: var(--cream-soft);
+      color: #8C6A3E;
+      border: 1px solid #EAD7B7;
       border-radius: 12px;
       padding: 4px 10px;
       font-size: 0.72rem;
@@ -360,20 +417,21 @@
     }
 
     .pickup-chip {
-      background: var(--bg-cream);
+      background: var(--bg-ivory);
       border: 1px solid var(--border-soft);
       border-radius: 10px;
-      padding: 4px 9px;
+      padding: 4px 10px;
       font-size: 0.76rem;
       font-weight: 700;
     }
 
     .control-panel {
       background: #FFFFFF;
-      border: 2px solid var(--border-soft);
-      border-radius: 20px;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 22px;
       padding: 13px;
       margin-bottom: 12px;
+      box-shadow: var(--shadow-soft);
     }
 
     .month-tabs {
@@ -387,7 +445,7 @@
 
     .month-tab {
       flex: 1;
-      background: var(--bg-cream);
+      background: var(--bg-ivory);
       color: var(--text-sub);
       border: 1.5px solid var(--border-soft);
       padding: 7px 10px;
@@ -400,9 +458,9 @@
     }
 
     .month-tab.active {
-      background: var(--coral-main);
+      background: var(--rose-accent);
       color: #FFFFFF;
-      border-color: var(--coral-main);
+      border-color: var(--rose-accent);
     }
 
     .filter-row {
@@ -415,12 +473,13 @@
       flex: 1;
       padding: 8px 12px;
       border-radius: 14px;
-      border: 2px solid var(--border-soft);
-      background: var(--bg-cream);
+      border: 1.5px solid var(--border-soft);
+      background: var(--bg-ivory);
       color: var(--text-main);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 700;
       font-family: inherit;
+      outline: none;
     }
 
     .summary-bar {
@@ -437,15 +496,16 @@
 
     .day-card {
       background: #FFFFFF;
-      border: 2px solid var(--border-soft);
+      border: 1.5px solid var(--border-soft);
       border-radius: 20px;
       padding: 13px 15px;
       margin-bottom: 10px;
+      box-shadow: 0 3px 10px rgba(122, 95, 86, 0.04);
     }
 
     .day-card.today-card {
-      border-color: var(--coral-main);
-      background: #FFFDF9;
+      border-color: var(--rose-accent);
+      background: #FFFDFB;
     }
 
     .day-header {
@@ -458,7 +518,7 @@
     }
 
     .day-title {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -470,22 +530,22 @@
       font-size: 0.74rem;
       padding: 2px 7px;
       border-radius: 8px;
-      background: var(--bg-cream);
+      background: var(--bg-ivory);
       color: var(--text-sub);
     }
     .dow-sat { background: var(--blue-soft); color: var(--blue-accent); }
-    .dow-sun { background: var(--pink-soft); color: var(--coral-dark); }
+    .dow-sun { background: var(--blush-soft); color: var(--rose-deep); }
 
     .holiday-badge {
-      background: var(--pink-soft);
-      color: var(--coral-dark);
+      background: var(--blush-soft);
+      color: var(--rose-deep);
       font-size: 0.68rem;
       padding: 2px 7px;
       border-radius: 8px;
     }
 
     .today-pill {
-      background: var(--coral-main);
+      background: var(--rose-accent);
       color: #FFFFFF;
       font-size: 0.66rem;
       padding: 2px 7px;
@@ -504,14 +564,14 @@
       align-items: center;
       padding: 7px 12px;
       border-radius: 12px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       font-weight: 700;
     }
-    .pill-allday { background: var(--pink-soft); color: var(--coral-dark); }
-    .pill-time   { background: var(--teal-soft); color: var(--teal-main); }
+    .pill-allday { background: var(--blush-soft); color: var(--rose-deep); }
+    .pill-time   { background: var(--sage-soft); color: var(--sage-accent); }
 
     .pill-time-text {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.88);
       padding: 2px 9px;
       border-radius: 9px;
       font-size: 0.78rem;
@@ -519,14 +579,15 @@
 
     .handover-box {
       background: #FFFFFF;
-      border: 2px solid var(--border-soft);
-      border-radius: 20px;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 22px;
       padding: 15px;
       margin-top: 16px;
+      box-shadow: var(--shadow-soft);
     }
 
     .handover-item {
-      background: var(--bg-cream);
+      background: var(--bg-ivory);
       border-radius: 12px;
       padding: 9px 11px;
       margin-top: 8px;
@@ -538,7 +599,7 @@
     .handover-meta {
       font-size: 0.7rem;
       font-weight: 700;
-      color: var(--coral-dark);
+      color: var(--rose-deep);
       margin-bottom: 2px;
     }
 
@@ -547,25 +608,26 @@
       display: block;
       text-align: center;
       text-decoration: none;
-      background: linear-gradient(135deg, #FF9E80 0%, #F26B4E 100%);
+      background: linear-gradient(135deg, #DFA397 0%, #C98276 100%);
       color: #FFFFFF;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       padding: 12px 16px;
       border-radius: 20px;
       margin-bottom: 12px;
-      box-shadow: 0 4px 12px rgba(242, 107, 78, 0.25);
+      box-shadow: 0 4px 12px rgba(201, 130, 118, 0.25);
     }
 
     .qa-search {
       width: 100%;
       padding: 10px 14px;
       border-radius: 16px;
-      border: 2px solid var(--border-soft);
+      border: 1.5px solid var(--border-soft);
       background: #FFFFFF;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-family: inherit;
       margin-bottom: 10px;
+      outline: none;
     }
 
     .qa-cat-tabs {
@@ -582,7 +644,7 @@
       color: var(--text-sub);
       padding: 6px 12px;
       border-radius: 14px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
@@ -590,23 +652,24 @@
     }
 
     .qa-cat-tab.active {
-      background: var(--coral-main);
+      background: var(--rose-accent);
       color: #FFFFFF;
-      border-color: var(--coral-main);
+      border-color: var(--rose-accent);
     }
 
     .qa-card {
       background: #FFFFFF;
-      border: 2px solid var(--border-soft);
+      border: 1.5px solid var(--border-soft);
       border-radius: 20px;
       padding: 14px 15px;
       margin-bottom: 12px;
+      box-shadow: 0 3px 10px rgba(122, 95, 86, 0.04);
     }
 
     .qa-cat-badge {
       display: inline-block;
-      background: var(--pink-soft);
-      color: var(--coral-dark);
+      background: var(--blush-soft);
+      color: var(--rose-deep);
       font-size: 0.7rem;
       font-weight: 700;
       padding: 2px 9px;
@@ -615,25 +678,25 @@
     }
 
     .qa-title {
-      font-size: 0.96rem;
+      font-size: 0.94rem;
       font-weight: 700;
       margin-bottom: 8px;
     }
 
     .qa-q-box {
-      background: #E8F8F2;
+      background: var(--sage-soft);
       border-radius: 14px;
       padding: 10px 12px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       margin-bottom: 8px;
       white-space: pre-wrap;
     }
 
     .qa-a-box {
-      background: #FFF9EE;
+      background: var(--cream-soft);
       border-radius: 14px;
       padding: 10px 12px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       margin-bottom: 8px;
       white-space: pre-wrap;
     }
@@ -647,20 +710,18 @@
     }
 
     .qa-like-btn {
-      background: var(--amber-soft);
-      color: #B45309;
-      border: 1.5px solid #FDE68A;
+      background: var(--cream-soft);
+      color: #8C6A3E;
+      border: 1px solid #EAD7B7;
       border-radius: 14px;
       padding: 5px 12px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
     }
 
     .qa-link-btn {
       font-size: 0.76rem;
-      color: var(--teal-main);
+      color: var(--sage-accent);
       font-weight: 700;
       text-decoration: none;
     }
@@ -669,14 +730,15 @@
       text-align: center;
       padding: 36px 12px;
       color: var(--text-sub);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
 
     footer {
       text-align: center;
       margin-top: 26px;
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       color: var(--text-sub);
+      letter-spacing: 0.03em;
     }
   </style>
 </head>
@@ -694,10 +756,12 @@
     <div class="container">
       <!-- キャラクター＆日付 -->
       <div class="hero-card">
-        <img id="heroCharImg" src="" alt="そうぜん先生" class="hero-char">
+        <div class="hero-char-wrap">
+          <img id="heroCharImg" src="" alt="そうぜん先生" class="hero-char">
+        </div>
         <div class="hero-right">
           <div class="hero-balloon" id="heroMessage"></div>
-          <div class="today-chip" id="todayDateChip">📅 読み込み中...</div>
+          <div class="today-chip" id="todayDateChip">読み込み中...</div>
         </div>
       </div>
 
@@ -715,23 +779,23 @@
     <div class="sub-header">
       <div class="sub-header-inner">
         <button type="button" class="back-btn" onclick="switchView('menu')">← メニュー</button>
-        <div class="sub-header-title">📅 シフト確認＆勤務報告</div>
+        <div class="sub-header-title">シフト確認＆勤務報告</div>
       </div>
     </div>
 
     <div class="container">
       <div class="action-grid">
         <a id="shiftReqLink" href="#" target="_blank" rel="noopener noreferrer" class="action-btn btn-shift-req">
-          <span>📅 シフト希望を<br>提出する</span>
+          <span>シフト希望を<br>提出する</span>
         </a>
         <a id="workRepLink" href="#" target="_blank" rel="noopener noreferrer" class="action-btn btn-work-rep">
-          <span>⏰ 本日の勤務報告<br>をする</span>
+          <span>本日の勤務報告<br>をする</span>
         </a>
       </div>
 
       <div id="todayPickupBox" class="today-pickup" style="display:none;">
         <div class="today-pickup-top">
-          <span id="todayPickupTitle" class="today-pickup-title">📌 本日の出勤</span>
+          <span id="todayPickupTitle" class="today-pickup-title">本日の出勤</span>
           <button type="button" class="jump-today-btn" onclick="jumpToToday()">今日へ移動 ↓</button>
         </div>
         <div id="todayPickupList" class="pickup-list"></div>
@@ -740,7 +804,7 @@
       <div class="control-panel">
         <div class="month-tabs" id="monthTabs"></div>
         <div class="filter-row">
-          <span style="font-size:0.78rem;font-weight:700;color:var(--text-sub);">👤 表示：</span>
+          <span style="font-size:0.78rem;font-weight:700;color:var(--text-sub);">表示スタッフ：</span>
           <select id="staffFilter" class="staff-select" onchange="renderShiftCards()">
             <option value="ALL">全員表示</option>
           </select>
@@ -760,7 +824,7 @@
       </div>
 
       <div id="handoverSection" class="handover-box" style="display:none;">
-        <div style="font-size:0.9rem;font-weight:700;">📝 直近の業務連絡・引き継ぎ</div>
+        <div style="font-size:0.88rem;font-weight:700;">直近の業務連絡・引き継ぎ</div>
         <div id="handoverList"></div>
       </div>
     </div>
@@ -773,16 +837,16 @@
     <div class="sub-header">
       <div class="sub-header-inner">
         <button type="button" class="back-btn" onclick="switchView('menu')">← メニュー</button>
-        <div class="sub-header-title">✉️ 質問箱＆みんなのQ&A</div>
+        <div class="sub-header-title">質問箱＆みんなのQ&A</div>
       </div>
     </div>
 
     <div class="container">
       <a id="qaFormLink" href="#" target="_blank" rel="noopener noreferrer" class="qa-post-btn">
-        ✏️ 新しく質問を投稿する（Googleフォーム）
+        新しく質問を投稿する（Googleフォーム）
       </a>
 
-      <input type="text" id="qaSearchInput" class="qa-search" placeholder="🔍 キーワード検索（例：膝痛、めまい、受付...）" oninput="renderQaList()">
+      <input type="text" id="qaSearchInput" class="qa-search" placeholder="キーワード検索（例：膝痛、めまい、受付...）" oninput="renderQaList()">
 
       <div class="qa-cat-tabs" id="qaCatTabs"></div>
 
@@ -807,65 +871,76 @@
     const PORTAL_CONFIG = {
       title: '🌸 スタッフ業務ポータル / 株式会社宗前堂',
       subtitle: '統合メニュー',
-      charImageUrl: 'https://lh3.googleusercontent.com/d/1OM08rqgvlVo5DTUvY0_10yQ_TeD8aRpX',
-      charFallbackUrl: 'https://drive.google.com/uc?export=view&id=1OM08rqgvlVo5DTUvY0_10yQ_TeD8aRpX',
+      charImageUrl: 'https://lh3.googleusercontent.com/d/12kcwLZRB7KcRAFOu9vyfUsuF04-JXRap',
+      charFallbackUrl: 'https://drive.google.com/uc?export=view&id=12kcwLZRB7KcRAFOu9vyfUsuF04-JXRap',
       greetingHtml: '何でも聞いて！😊<br>今日も1日よろしく<br>お願いします！',
 
-      // ▼ 各GASの「ウェブアプリURL（/execで終わるURL）」をここに貼る
+      // ▼ 各GASのウェブアプリURL
       shiftGasApiUrl: 'https://script.google.com/macros/s/AKfycbzSbgK5i-4-iMkiUfL2h9NXz2yY-zwCUzfD1Lf0ED3qJybuN6b2PEP3np7dzHBkdg/exec?api=shift',
       qaGasApiUrl:    'https://script.google.com/macros/s/AKfycbzO1vGmgtZdwxoGoDYCL27v3OzXI0rMi0fYFG0RklSb02YJHGl1TIGalJrjGqHpQgZEWg/exec?api=qa',
 
-      // ▼ 各GoogleフォームのURLをここに貼る
+      // ▼ 各GoogleフォームのURL
       shiftRequestFormUrl: 'https://forms.gle/jjhmaKu4WxCNJhw46',
       workReportFormUrl:   'https://forms.gle/NxR1FJdWaPKjGYoY8',
       qaPostFormUrl:       'https://forms.gle/KLvFeSAYJHRkM7Ja8'
     };
 
-    // ▼ メニューの並び順・文字・色（mint / yellow / blue / coral / purple / sky）を自由に変更可能
+    // ▼ 線画SVGアイコン集（白丸バッジ内に表示）
+    const ICONS = {
+      clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>',
+      calendar: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+      clipboard: '<svg viewBox="0 0 24 24"><path d="M9 4h6a2 2 0 0 1 2 2v1H7V6a2 2 0 0 1 2-2z"/><rect x="5" y="5" width="14" height="16" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>',
+      mail: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><polyline points="3 7 12 13 21 7"/></svg>',
+      edit: '<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>',
+      globe: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>',
+      file: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>'
+    };
+
+    // ▼ メニューの並び順・文字・色（sage / honey / babyblue / peach / lilac / aqua / milktea）を自由に変更可能
     const MENU_ITEMS = [
       {
         id: 'attendance',
         title: '出退勤報告',
         desc: '出勤・退勤の打刻や報告はこちらから',
-        icon: '⏰',
-        color: 'mint',
+        icon: 'clock',
+        color: 'sage',
         type: 'link',
         url: 'https://forms.gle/yXtCdmY4vJEv8BaR9'
       },
       {
         id: 'shift',
-        title: 'シフト報告＆確認',
+        title: 'シフト報告<br>＆確認',
         desc: '希望シフトの提出・確定シフト表の確認',
-        icon: '📅',
-        color: 'yellow',
+        icon: 'calendar',
+        color: 'honey',
         type: 'view',
         targetView: 'shift'
       },
       {
         id: 'reservation',
-        title: '銀座院 予約システム',
+        title: '銀座院<br>予約システム',
         desc: '銀座そうぜん鍼灸院の予約状況の確認・管理',
-        icon: '📋',
-        color: 'blue',
+        icon: 'clipboard',
+        color: 'babyblue',
         type: 'link',
         url: 'https://sozen-harikyu.github.io/sozen-reserve/'
       },
       {
         id: 'qa',
-        title: '質問箱<br>（投稿＆回答一覧）',
+        title: '質問箱<br>（投稿＆回答）',
         desc: '施術・業務に関する疑問、相談の匿名投稿・回答',
-        icon: '✉️',
-        color: 'coral',
+        icon: 'mail',
+        color: 'peach',
         badge: 'Q&Aが<br>見れるよ！',
         type: 'view',
         targetView: 'qa'
       },
       {
         id: 'case_report',
-        title: '症例報告フォーム',
+        title: '症例報告<br>フォーム',
         desc: 'ポータル掲載用の症例・治療経過の共有',
-        icon: '📝',
-        color: 'purple',
+        icon: 'edit',
+        color: 'lilac',
         type: 'link',
         url: 'https://forms.gle/9H7KfYXxdfS92bHJ6'
       },
@@ -873,8 +948,8 @@
         id: 'group_portal',
         title: 'グループ<br>ポータルサイト',
         desc: '各種マニュアル、共有資料のトップへ移動',
-        icon: '🌐',
-        color: 'sky',
+        icon: 'globe',
+        color: 'aqua',
         ribbon: 'ハブ',
         type: 'link',
         url: 'https://sozen-harikyu.github.io/sozen-portal/'
@@ -883,8 +958,8 @@
         id: 'contract',
         title: '契約書フォーム',
         desc: '各種契約や同意書の入力・提出はこちらから',
-        icon: '📄',
-        color: 'purple',
+        icon: 'file',
+        color: 'milktea',
         fullWidth: true,
         type: 'link',
         url: 'https://forms.gle/BAw6sWFAFVxfkHXV7'
@@ -925,12 +1000,13 @@
         const badgeHtml = item.badge ? `<span class="badge-circle">${item.badge}</span>` : '';
         const ribbonHtml = item.ribbon ? `<span class="ribbon-tag">${escapeHtml(item.ribbon)}</span>` : '';
         const widthCls = item.fullWidth ? ' full-width' : '';
+        const iconSvg = ICONS[item.icon] || ICONS.file;
         const inner = `
           ${badgeHtml}
           ${ribbonHtml}
-          <div class="menu-title-row">
-            <span class="menu-icon">${item.icon}</span>
-            <span>${item.title}</span>
+          <div class="menu-header-row">
+            <span class="icon-circle">${iconSvg}</span>
+            <span class="menu-title-text">${item.title}</span>
           </div>
           <div class="menu-desc">${escapeHtml(item.desc)}</div>
         `;
@@ -947,7 +1023,8 @@
       const now = new Date();
       const dows = ['日', '月', '火', '水', '木', '金', '土'];
       const str = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日（${dows[now.getDay()]}）`;
-      document.getElementById('todayDateChip').textContent = '📅 ' + str;
+      document.getElementById('todayDateChip').innerHTML =
+        `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>${str}</span>`;
     }
 
     function switchView(viewName) {
@@ -1002,9 +1079,9 @@
       const box = document.getElementById('todayPickupBox');
       if (!foundDay) { box.style.display = 'none'; return; }
       box.style.display = 'block';
-      document.getElementById('todayPickupTitle').textContent = `📌 本日（${foundDay.date}・${foundDay.dow}）の出勤`;
+      document.getElementById('todayPickupTitle').textContent = `本日（${foundDay.date}・${foundDay.dow}）の出勤`;
       document.getElementById('todayPickupList').innerHTML = foundDay.shifts.length
-        ? foundDay.shifts.map(s => `<span class="pickup-chip">👤 ${escapeHtml(s.staff)}：${escapeHtml(s.time)}</span>`).join('')
+        ? foundDay.shifts.map(s => `<span class="pickup-chip">${escapeHtml(s.staff)}：${escapeHtml(s.time)}</span>`).join('')
         : '<span class="pickup-chip">本日のシフト予定はありません</span>';
     }
 
@@ -1082,7 +1159,7 @@
         const pills = list.length
           ? `<div class="shift-pills">${list.map(s => `
               <div class="shift-pill ${s.time.includes('終日') ? 'pill-allday' : 'pill-time'}">
-                <span>👤 ${escapeHtml(s.staff)}</span>
+                <span>${escapeHtml(s.staff)}</span>
                 <span class="pill-time-text">${escapeHtml(s.time)}</span>
               </div>`).join('')}</div>`
           : '<div style="font-size:0.78rem;color:#B8ABA0;text-align:center;padding:4px 0;">予定なし</div>';
@@ -1167,10 +1244,10 @@
           <div class="qa-a-box"><strong>そうぜん先生の回答：</strong>\n${escapeHtml(item.answer || '')}</div>
           <div class="qa-footer">
             <div>
-              ${item.material ? `<a href="${escapeHtml(item.material)}" target="_blank" class="qa-link-btn">📎 資料を見る</a> ` : ''}
-              ${item.refLink ? `<a href="${escapeHtml(item.refLink)}" target="_blank" class="qa-link-btn">🔗 参考リンク</a>` : ''}
+              ${item.material ? `<a href="${escapeHtml(item.material)}" target="_blank" class="qa-link-btn">資料を見る</a> ` : ''}
+              ${item.refLink ? `<a href="${escapeHtml(item.refLink)}" target="_blank" class="qa-link-btn">参考リンク</a>` : ''}
             </div>
-            <span class="qa-like-btn">👏 参考になった！ ${Number(item.likes) || 0}</span>
+            <span class="qa-like-btn">参考になった！ ${Number(item.likes) || 0}</span>
           </div>
         </div>
       `).join('') : '<div class="loading-msg">該当するQ&Aが見つかりませんでした🌱</div>';
